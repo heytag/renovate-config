@@ -9,6 +9,20 @@ Self-hosted Renovate runner and shared dependency update presets for the heytag 
 | `.github/workflows/renovate.yml` | Renovate runner workflow — copy into any repo |
 | `default.json` | Shared Renovate preset — extend from any `renovate.json` |
 
+### Why `default.json` and not `renovate.json`?
+
+`renovate.json` is the Renovate configuration *for this repo itself* (how Renovate updates its own dependencies). `default.json` is Renovate's naming convention for **shared presets** — it's the exact filename Renovate looks for when another repo uses `"extends": ["github>heytag/renovate-config"]`.
+
+### How does `"extends": ["github>heytag/renovate-config"]` work?
+
+When Renovate scans a target repo (e.g. `caddy-geoheaders`) and finds `"extends": ["github>heytag/renovate-config"]` in its `renovate.json`, it:
+
+1. Fetches `heytag/renovate-config/default.json` via the GitHub API (using the App token — works with private repos)
+2. Merges the preset config as the base
+3. Applies any rules from the target repo's `renovate.json` on top as overrides
+
+The format is `github>owner/repo` for the default preset (`default.json`). Named presets are also possible: `github>heytag/renovate-config:terraform` would load `terraform.json`.
+
 ---
 
 ## Why GitHub App instead of a PAT?
@@ -39,15 +53,17 @@ Go to: **GitHub.com → Settings → Developer settings → GitHub Apps → New 
 
 **Repository permissions:**
 
-| Permission | Level |
-|------------|-------|
-| Checks | Read-only |
-| Commit statuses | Read-only |
-| Contents | Read & Write |
-| Issues | Read & Write |
-| Metadata | Read-only (mandatory) |
-| Pull requests | Read & Write |
-| Workflows | Read & Write |
+| Permission | Level | Why Renovate needs it |
+|------------|-------|-----------------------|
+| Checks | Read-only | Read CI check results to determine if automerge is safe |
+| Commit statuses | Read-only | Read legacy commit status results (used alongside Checks) |
+| Contents | Read & Write | Clone the repo, push update branches |
+| Issues | Read & Write | Create and update the Dependency Dashboard issue |
+| Metadata | Read-only | Search repos, read repository metadata (mandatory) |
+| Pull requests | Read & Write | Open, update, and automerge dependency PRs |
+| Workflows | Read & Write | Update GitHub Actions workflow files (e.g. `actions/checkout@v7 → v8`) |
+
+> **Note:** Missing `Checks` or `Commit statuses` causes `integration-unauthorized` errors when Renovate tries to read CI status after opening a PR. Both must be granted and accepted in the org installation.
 
 Select **Only on this account**, then click **Create GitHub App**.
 
