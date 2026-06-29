@@ -3,6 +3,17 @@
   "extends": ["config:recommended"],
   "schedule": ["before 7am on monday"],
   "labels": ["dependencies"],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "Update pinned versions in workflow files annotated with renovate comments",
+      "managerFilePatterns": ["/.github/workflows/.*\\.yml$/"],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>[^\\s]+) depName=(?<depName>[^\\s]+)\\s+\\w+:\\s*(?<currentValue>[^\\s]+)"
+      ],
+      "extractVersionTemplate": "^v?(?<version>.+)$"
+    }
+  ],
   "packageRules": [
     {
       "matchManagers": ["gomod", "github-actions", "custom.regex"],
