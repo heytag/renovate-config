@@ -170,6 +170,17 @@ env:
   CADDY_VERSION: 2.11.3
 ```
 
+### Dockerfile pinned release downloads
+
+Unlike the workflow-file example above, this custom manager is already built into `default.json` — no local `customManagers` entry needed. Just annotate the `ADD` line in any `Dockerfile*`:
+
+```dockerfile
+# renovate: datasource=github-releases depName=mlocati/docker-php-extension-installer
+ADD --chmod=0755 https://github.com/mlocati/docker-php-extension-installer/releases/download/2.11.12/install-php-extensions /usr/local/bin/
+```
+
+Renovate extracts the version from the `/releases/download/<version>/` path segment and opens a PR when a newer GitHub release is published.
+
 ### Terraform / OpenTofu
 
 ```json

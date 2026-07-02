@@ -12,6 +12,15 @@
         "# renovate: datasource=(?<datasource>[^\\s]+) depName=(?<depName>[^\\s]+)\\s+\\w+:\\s*(?<currentValue>[^\\s]+)"
       ],
       "extractVersionTemplate": "^v?(?<version>.+)$"
+    },
+    {
+      "customType": "regex",
+      "description": "Update pinned release downloads in Dockerfiles annotated with renovate comments",
+      "managerFilePatterns": ["/(^|/)Dockerfile[^/]*$/"],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>[^\\s]+) depName=(?<depName>[^\\s]+)\\s+ADD --chmod=\\d+ https://github\\.com/[^/\\s]+/[^/\\s]+/releases/download/(?<currentValue>[^/\\s]+)/[^\\s]+"
+      ],
+      "extractVersionTemplate": "^v?(?<version>.+)$"
     }
   ],
   "packageRules": [
