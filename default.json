@@ -5,8 +5,7 @@
   "labels": ["dependencies"],
   "osvVulnerabilityAlerts": true,
   "vulnerabilityAlerts": {
-    "labels": ["security"],
-    "schedule": ["at any time"]
+    "enabled": false
   },
   "customManagers": [
     {
