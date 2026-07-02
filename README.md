@@ -224,6 +224,12 @@ When two entries must always stay in sync (e.g. Caddy binary version and its `go
 
 ---
 
+## Vulnerability Alerts
+
+`osvVulnerabilityAlerts` cross-checks every dependency in every managed repo against the [OSV.dev](https://osv.dev) database — no extra GitHub App permission needed, since it doesn't use GitHub's own Dependabot alerts API. When a dependency has a known vulnerability, Renovate opens a fix PR **immediately**, labeled `security`, bypassing the normal `before 7am on monday` schedule (`"schedule": ["at any time"]`).
+
+---
+
 ## Dependency Dashboard
 
 Renovate creates a **Dependency Dashboard** GitHub Issue in each managed repo. It shows all pending and scheduled updates.

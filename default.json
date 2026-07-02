@@ -3,6 +3,11 @@
   "extends": ["config:recommended"],
   "schedule": ["before 7am on monday"],
   "labels": ["dependencies"],
+  "osvVulnerabilityAlerts": true,
+  "vulnerabilityAlerts": {
+    "labels": ["security"],
+    "schedule": ["at any time"]
+  },
   "customManagers": [
     {
       "customType": "regex",
