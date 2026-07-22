@@ -11,8 +11,8 @@
   "customManagers": [
     {
       "customType": "regex",
-      "description": "Update pinned versions in workflow files annotated with renovate comments",
-      "managerFilePatterns": ["/.github/workflows/.*\\.yml$/"],
+      "description": "Update pinned versions in workflow/action files annotated with renovate comments",
+      "managerFilePatterns": ["/.github/workflows/.*\\.yml$/", "/(^|/)action\\.ya?ml$/"],
       "matchStrings": [
         "# renovate: datasource=(?<datasource>[^\\s]+) depName=(?<depName>[^\\s]+)\\s+\\w+:\\s*(?<currentValue>[^\\s]+)"
       ],
