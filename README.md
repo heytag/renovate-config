@@ -170,6 +170,17 @@ env:
   CADDY_VERSION: 2.11.3
 ```
 
+The same manager also covers `action.yml`/`action.yaml` files anywhere in the repo, for pinning a tool version an action's `default:` input falls back to when the action itself doesn't keep it current (e.g. `aquasecurity/trivy-action` bundling a stale Trivy CLI default):
+
+```yaml
+inputs:
+  trivy-version:
+    # renovate: datasource=github-releases depName=aquasecurity/trivy
+    default: v0.72.0
+```
+
+Leave the value unquoted - a quoted `'v0.72.0'` gets captured with the quotes included, breaking the version match.
+
 ### Dockerfile pinned release downloads
 
 Unlike the workflow-file example above, this custom manager is already built into `default.json` — no local `customManagers` entry needed. Just annotate the `ADD` line in any `Dockerfile*`:
