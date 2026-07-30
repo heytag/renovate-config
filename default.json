@@ -1,6 +1,10 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:recommended"],
+  "semanticCommits": "enabled",
+  "semanticCommitType": "chore",
+  "semanticCommitScope": "deps",
+  "dependencyDashboard": true,
   "gitSubmodules": true,
   "schedule": ["before 7am on monday"],
   "labels": ["dependencies"],
@@ -26,6 +30,17 @@
         "# renovate: datasource=(?<datasource>[^\\s]+) depName=(?<depName>[^\\s]+)\\s+ADD --chmod=\\d+ https://github\\.com/[^/\\s]+/[^/\\s]+/releases/download/(?<currentValue>[^/\\s]+)/[^\\s]+"
       ],
       "extractVersionTemplate": "^v?(?<version>.+)$"
+    },
+    {
+      "customType": "regex",
+      "description": "Update heytag/renovate-config version pin in extends",
+      "managerFilePatterns": ["/^renovate\\.json5?$/", "/^\\.github/renovate\\.json5?$/"],
+      "matchStrings": [
+        "\"github>heytag/renovate-config#(?<currentValue>[^\"]+)\""
+      ],
+      "depNameTemplate": "heytag/renovate-config",
+      "datasourceTemplate": "github-releases",
+      "extractVersionTemplate": "^v?(?<version>.+)$"
     }
   ],
   "packageRules": [
@@ -39,6 +54,12 @@
       "matchUpdateTypes": ["major"],
       "automerge": false,
       "labels": ["dependencies", "manual-review"]
+    },
+    {
+      "description": "sGTM Google Cloud Tagging image: update immediately, not just Monday",
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["gcr.io/cloud-tagging-10302018/gtm-cloud-image"],
+      "schedule": ["at any time"]
     }
   ]
 }
