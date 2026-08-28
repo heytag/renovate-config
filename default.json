@@ -45,13 +45,19 @@
   ],
   "packageRules": [
     {
-      "matchManagers": ["gomod", "github-actions", "custom.regex"],
+      "matchManagers": ["gomod", "github-actions", "custom.regex", "bun", "docker-compose"],
       "matchUpdateTypes": ["minor", "patch"],
       "automerge": true
     },
     {
-      "matchManagers": ["gomod", "github-actions", "custom.regex"],
+      "matchManagers": ["gomod", "github-actions", "custom.regex", "bun", "docker-compose"],
       "matchUpdateTypes": ["major"],
+      "automerge": false,
+      "labels": ["dependencies", "manual-review"]
+    },
+    {
+      "description": "Never automerge core framework and auth — always review",
+      "matchPackageNames": ["next", "react", "react-dom", "@auth/core", "better-auth"],
       "automerge": false,
       "labels": ["dependencies", "manual-review"]
     },
