@@ -134,6 +134,25 @@ Or extend and override for repo-specific rules:
 }
 ```
 
+### Automerge: why `platformAutomerge` is off
+
+The preset automerges minor/patch updates, but merging is done by Renovate itself, not by GitHub's native auto-merge (`"platformAutomerge": false`):
+
+- heytag's repos are private on a plan without branch protection or required status checks. GitHub-native auto-merge would merge a PR **immediately, even with red checks**. It's also disabled per repo (`allow_auto_merge: false`), so with the old default nothing was ever automerged.
+- Renovate's own automerge only merges once **every** status check on the branch has passed. A repo without any CI checks never gets automerged (Renovate treats "no checks" as not green unless `ignoreTests` is set, which we don't).
+
+Don't override this with `"platformAutomerge": true` in a repo's `renovate.json`.
+
+Renovate only merges while it runs, which by default is the Monday schedule. To merge a green PR right after its CI finishes, add a `workflow_run` trigger to the repo's `renovate.yml`:
+
+```yaml
+on:
+  workflow_run:
+    workflows: [<name of the CI workflow>]
+    types: [completed]
+    branches: ['renovate/**']
+```
+
 ---
 
 ## `renovate.json` Examples by Stack

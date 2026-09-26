@@ -8,6 +8,7 @@
   "gitSubmodules": true,
   "schedule": ["before 7am on monday"],
   "labels": ["dependencies"],
+  "platformAutomerge": false,
   "osvVulnerabilityAlerts": true,
   "vulnerabilityAlerts": {
     "enabled": false
