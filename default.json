@@ -48,7 +48,8 @@
     {
       "matchManagers": ["gomod", "github-actions", "custom.regex", "bun", "docker-compose"],
       "matchUpdateTypes": ["minor", "patch"],
-      "automerge": true
+      "automerge": true,
+      "minimumReleaseAge": "3 days"
     },
     {
       "matchManagers": ["gomod", "github-actions", "custom.regex", "bun", "docker-compose"],
