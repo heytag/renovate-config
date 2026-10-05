@@ -6,7 +6,7 @@
   "semanticCommitScope": "deps",
   "dependencyDashboard": true,
   "gitSubmodules": true,
-  "schedule": ["before 7am on monday"],
+  "schedule": ["at any time"],
   "labels": ["dependencies"],
   "platformAutomerge": false,
   "osvVulnerabilityAlerts": true,
@@ -46,8 +46,15 @@
   ],
   "packageRules": [
     {
+      "description": "All managers, patch updates: auto-merge after 3 days — per-repo can override with automerge: false for risky packages",
+      "matchUpdateTypes": ["patch"],
+      "automerge": true,
+      "minimumReleaseAge": "3 days"
+    },
+    {
+      "description": "Safe managers, minor updates: auto-merge after 3 days",
       "matchManagers": ["gomod", "github-actions", "custom.regex", "bun", "docker-compose"],
-      "matchUpdateTypes": ["minor", "patch"],
+      "matchUpdateTypes": ["minor"],
       "automerge": true,
       "minimumReleaseAge": "3 days"
     },
