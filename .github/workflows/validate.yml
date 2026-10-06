@@ -1,0 +1,68 @@
+name: Validate
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  renovate-config:
+    name: Renovate config
+    runs-on: [self-hosted, heytag-ci]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate default.json
+        run: |
+          docker run --rm \
+            -v "$PWD/default.json:/default.json:ro" \
+            node:22-alpine \
+            sh -c "npx --yes @renovate/config-validator /default.json"
+
+  json-syntax:
+    name: JSON syntax
+    runs-on: [self-hosted, heytag-ci]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check all JSON files
+        run: |
+          docker run --rm \
+            -v "$PWD:/repo:ro" \
+            -w /repo \
+            node:22-alpine \
+            node -e "
+              const files = [
+                'default.json',
+                'package.json',
+                'release-please-config.json',
+                '.release-please-manifest.json',
+              ];
+              for (const f of files) {
+                try {
+                  JSON.parse(require('fs').readFileSync(f, 'utf8'));
+                  console.log('ok ' + f);
+                } catch (e) {
+                  console.error('FAIL ' + f + ': ' + e.message);
+                  process.exit(1);
+                }
+              }
+            "
+
+  versions-match:
+    name: Version consistency
+    runs-on: [self-hosted, heytag-ci]
+    steps:
+      - uses: actions/checkout@v4
+      - name: package.json and manifest versions match
+        run: |
+          docker run --rm \
+            -v "$PWD:/repo:ro" \
+            -w /repo \
+            node:22-alpine \
+            node -e "
+              const pkg = require('./package.json').version;
+              const manifest = require('./.release-please-manifest.json')['.'];
+              if (pkg !== manifest) {
+                console.error('version mismatch: package.json=' + pkg + ' manifest=' + manifest);
+                process.exit(1);
+              }
+              console.log('ok ' + pkg);
+            "
