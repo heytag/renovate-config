@@ -1,0 +1,3 @@
+[submodule ".claude/conventions"]
+	path = .claude/conventions
+	url = https://github.com/heytag/claude-conventions

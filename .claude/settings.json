@@ -1,0 +1,54 @@
+{
+    "attribution": {
+        "commit": "",
+        "pr": ""
+    },
+    "permissions": {
+        "allow": [
+            "Write(.github/workflows/*.yml)",
+            "Edit(.github/workflows/*.yml)"
+        ],
+        "deny": [
+            "Read(**/.env)",
+            "Read(**/.env.*)",
+            "Edit(**/.env)",
+            "Edit(**/.env.*)",
+            "Write(**/.env)",
+            "Write(**/.env.*)",
+            "Read(**/*.pem)",
+            "Edit(**/*.pem)",
+            "Read(**/*.key)",
+            "Edit(**/*.key)",
+            "Read(**/credentials*.json)",
+            "Edit(**/credentials*.json)"
+        ]
+    },
+    "hooks": {
+        "PreToolUse": [
+            {
+                "matcher": "Bash",
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "g=\"$CLAUDE_PROJECT_DIR/.claude/conventions/hooks/git-guard.py\"; if [ -f \"$g\" ] && command -v python3 >/dev/null 2>&1; then python3 \"$g\" pre-commit; else echo '{\"systemMessage\":\"git guards inactive: .claude/conventions submodule (run git submodule update --init) or python3 missing\"}'; fi"
+                    },
+                    {
+                        "type": "command",
+                        "command": "g=\"$CLAUDE_PROJECT_DIR/.claude/conventions/hooks/git-guard.py\"; if [ -f \"$g\" ] && command -v python3 >/dev/null 2>&1; then python3 \"$g\" pre-push; else echo '{\"systemMessage\":\"git guards inactive: .claude/conventions submodule (run git submodule update --init) or python3 missing\"}'; fi"
+                    }
+                ]
+            }
+        ],
+        "PostToolUse": [
+            {
+                "matcher": "Bash",
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "g=\"$CLAUDE_PROJECT_DIR/.claude/conventions/hooks/git-guard.py\"; if [ -f \"$g\" ] && command -v python3 >/dev/null 2>&1; then python3 \"$g\" post-commit; else echo '{\"systemMessage\":\"git guards inactive: .claude/conventions submodule (run git submodule update --init) or python3 missing\"}'; fi"
+                    }
+                ]
+            }
+        ]
+    }
+}
