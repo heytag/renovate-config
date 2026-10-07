@@ -13,9 +13,9 @@ jobs:
       - name: Validate default.json
         run: |
           docker run --rm \
-            -v "$PWD/default.json:/default.json:ro" \
-            node:22-alpine \
-            sh -c "npx --yes @renovate/config-validator /default.json"
+            -v "$PWD/default.json:/usr/src/app/default.json:ro" \
+            ghcr.io/renovatebot/renovate \
+            renovate-config-validator /usr/src/app/default.json
 
   json-syntax:
     name: JSON syntax
