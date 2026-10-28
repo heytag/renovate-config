@@ -7,6 +7,9 @@
   "dependencyDashboard": true,
   "schedule": ["at any time"],
   "internalChecksFilter": "none",
+  "statusCheckNames": {
+    "minimumReleaseAge": null
+  },
   "labels": ["dependencies"],
   "platformAutomerge": false,
   "osvVulnerabilityAlerts": true,
