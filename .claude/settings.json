@@ -48,6 +48,15 @@
                         "command": "g=\"$CLAUDE_PROJECT_DIR/.claude/conventions/hooks/git-guard.py\"; if [ -f \"$g\" ] && command -v python3 >/dev/null 2>&1; then python3 \"$g\" post-commit; else echo '{\"systemMessage\":\"git guards inactive: .claude/conventions submodule (run git submodule update --init) or python3 missing\"}'; fi"
                     }
                 ]
+            },
+            {
+                "matcher": "Write|Edit",
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "cd \"$CLAUDE_PROJECT_DIR\" && python3 -c \"\nimport json, os, sys\nfiles = ['default.json','package.json','.github/release-please-config.json','.github/.release-please-manifest.json']\nerrors = []\nfor f in files:\n  if not os.path.exists(f): continue\n  try: json.load(open(f))\n  except Exception as e: errors.append(f'FAIL {f}: {e}')\nif errors:\n  print(json.dumps({'systemMessage': 'JSON syntax error: ' + '; '.join(errors)}))\n  sys.exit(0)\ntry:\n  pkg = json.load(open('package.json'))['version']\n  manifest = json.load(open('.github/.release-please-manifest.json'))['.']\n  if pkg != manifest:\n    print(json.dumps({'systemMessage': f'Version mismatch: package.json={pkg} manifest={manifest}'}))\nexcept: pass\n\""
+                    }
+                ]
             }
         ]
     }
