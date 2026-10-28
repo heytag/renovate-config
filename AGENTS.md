@@ -12,21 +12,13 @@ Shared Renovate preset for all heytag repos, consumed via `extends: ["github>hey
 ## Versioning & tagging
 
 - Version is managed by release-please — do not bump `package.json` manually or create `git tag`s.
-- Tags have no `v`-prefix (`include-v-in-tag: false`).
-
-## CI runner
-
-```yaml
-runs-on: [self-hosted, heytag-ci]
-```
-
-No pre-installed tools beyond Docker. If a step needs `jq` or similar, it must be baked into the runner image — `apt-get install` in a workflow step will fail (no sudo).
+- Tags use a `v`-prefix (`include-v-in-tag: true`).
 
 ## Key constraints in default.json
 
 - `minimumReleaseAge: "3 days"` on the automerge rule — do not remove; it guards against silent vendor regressions.
 - `gitSubmodules: true` — required for `.claude/conventions` submodule tracking across heytag repos.
-- All version tags without `v`-prefix.
+- `internalChecksFilter: none` — PRs are created immediately without waiting for base branch CI.
 
 ## Secrets
 

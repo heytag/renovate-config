@@ -1,28 +1,22 @@
 name: Validate
 
 on:
-  push:
   pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: validate-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  renovate-config:
-    name: Renovate config
+  validate:
+    name: Validate
     runs-on: [self-hosted, heytag-ci]
     steps:
-      - uses: actions/checkout@v4
-      - name: Validate default.json
-        run: |
-          docker run --rm \
-            -v "$PWD/default.json:/default.json:ro" \
-            node:22-alpine \
-            sh -c "npx --yes @renovate/config-validator /default.json"
+      - uses: actions/checkout@v7
 
-  json-syntax:
-    name: JSON syntax
-    runs-on: [self-hosted, heytag-ci]
-    steps:
-      - uses: actions/checkout@v4
-      - name: Check all JSON files
+      - name: JSON syntax
         run: |
           docker run --rm \
             -v "$PWD:/repo:ro" \
@@ -32,26 +26,21 @@ jobs:
               const files = [
                 'default.json',
                 'package.json',
-                'release-please-config.json',
-                '.release-please-manifest.json',
+                '.github/release-please-config.json',
+                '.github/.release-please-manifest.json',
               ];
               for (const f of files) {
                 try {
                   JSON.parse(require('fs').readFileSync(f, 'utf8'));
-                  console.log('ok ' + f);
+                  console.log('ok', f);
                 } catch (e) {
-                  console.error('FAIL ' + f + ': ' + e.message);
+                  console.error('FAIL', f + ':', e.message);
                   process.exit(1);
                 }
               }
             "
 
-  versions-match:
-    name: Version consistency
-    runs-on: [self-hosted, heytag-ci]
-    steps:
-      - uses: actions/checkout@v4
-      - name: package.json and manifest versions match
+      - name: Version consistency
         run: |
           docker run --rm \
             -v "$PWD:/repo:ro" \
@@ -59,10 +48,17 @@ jobs:
             node:22-alpine \
             node -e "
               const pkg = require('./package.json').version;
-              const manifest = require('./.release-please-manifest.json')['.'];
+              const manifest = require('./.github/.release-please-manifest.json')['.'];
               if (pkg !== manifest) {
                 console.error('version mismatch: package.json=' + pkg + ' manifest=' + manifest);
                 process.exit(1);
               }
-              console.log('ok ' + pkg);
+              console.log('ok', pkg);
             "
+
+      - name: Renovate config
+        run: |
+          docker run --rm \
+            -v "$PWD/default.json:/default.json:ro" \
+            node:22-alpine \
+            sh -c "npx --yes --package renovate renovate-config-validator /default.json"
