@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.1](https://github.com/heytag/renovate-config/compare/v1.3.0...v1.3.1) (2026-10-28)
+
+
+### Bug Fixes
+
+* **config:** strip renovate-config-v prefix in extractVersionTemplate; drop component from tags ([#21](https://github.com/heytag/renovate-config/issues/21)) ([8dd324b](https://github.com/heytag/renovate-config/commit/8dd324bad043c951c99cb8ecfbca34be0a1972d0))
+
 ## [1.3.0](https://github.com/heytag/renovate-config/compare/renovate-config-v1.2.0...renovate-config-v1.3.0) (2026-10-28)
 
 
