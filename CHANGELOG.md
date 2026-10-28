@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.4](https://github.com/heytag/renovate-config/compare/v0.0.3...v0.0.4) (2026-10-28)
+
+
+### Bug Fixes
+
+* **config:** disable minimumReleaseAge status check ([#31](https://github.com/heytag/renovate-config/issues/31)) ([24f2ad0](https://github.com/heytag/renovate-config/commit/24f2ad017f218f90da39c517e54f543aa2c0a6b9))
+
 ## [0.0.3](https://github.com/heytag/renovate-config/compare/v0.0.2...v0.0.3) (2026-10-28)
 
 
