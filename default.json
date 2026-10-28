@@ -7,6 +7,7 @@
   "dependencyDashboard": true,
   "gitSubmodules": true,
   "schedule": ["at any time"],
+  "internalChecksFilter": "none",
   "labels": ["dependencies"],
   "platformAutomerge": false,
   "osvVulnerabilityAlerts": true,
@@ -80,6 +81,12 @@
       "description": "Ignore internal heytag base images on STACKIT registry — not publicly accessible by Renovate",
       "matchDatasources": ["docker"],
       "matchPackagePatterns": ["heytag/(bun-next-base|caddy-next-base)"],
+      "enabled": false
+    },
+    {
+      "description": "trivy-action: custom.regex manager handles updates via github-releases; suppress conflicting github-actions manager lookup that fails with no-result",
+      "matchManagers": ["github-actions"],
+      "matchPackageNames": ["aquasecurity/trivy-action"],
       "enabled": false
     }
   ]
