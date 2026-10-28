@@ -5,7 +5,6 @@
   "semanticCommitType": "chore",
   "semanticCommitScope": "deps",
   "dependencyDashboard": true,
-  "gitSubmodules": true,
   "schedule": ["at any time"],
   "internalChecksFilter": "none",
   "labels": ["dependencies"],
