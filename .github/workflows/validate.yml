@@ -9,7 +9,7 @@ jobs:
     name: Renovate config
     runs-on: [self-hosted, heytag-ci]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Validate default.json
         run: |
           docker run --rm \
@@ -21,7 +21,7 @@ jobs:
     name: JSON syntax
     runs-on: [self-hosted, heytag-ci]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Check all JSON files
         run: |
           docker run --rm \
@@ -50,7 +50,7 @@ jobs:
     name: Version consistency
     runs-on: [self-hosted, heytag-ci]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: package.json and manifest versions match
         run: |
           docker run --rm \

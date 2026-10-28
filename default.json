@@ -80,7 +80,7 @@
     {
       "description": "Ignore internal heytag base images on STACKIT registry — not publicly accessible by Renovate",
       "matchDatasources": ["docker"],
-      "matchPackagePatterns": ["heytag/(bun-next-base|caddy-next-base)"],
+      "matchPackageNames": ["/^heytag\\/(bun-next-base|caddy-next-base)/"],
       "enabled": false
     },
     {
