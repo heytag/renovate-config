@@ -3,6 +3,7 @@
   "packages": {
     ".": {
       "release-type": "node",
+      "component": "",
       "include-v-in-tag": true,
       "include-component-in-tag": false,
       "bump-patch-for-minor-pre-major": true
