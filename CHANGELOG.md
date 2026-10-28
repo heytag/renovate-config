@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.3](https://github.com/heytag/renovate-config/compare/v0.0.2...v0.0.3) (2026-10-28)
+
+
+### Features
+
+* **preset:** auto-merge heytag/renovate-config updates immediately in all consuming repos ([0f48da6](https://github.com/heytag/renovate-config/commit/0f48da6be90b5836769e61029d6a2a549f0efe61))
+* **preset:** auto-merge heytag/renovate-config updates immediately in all consuming repos ([#29](https://github.com/heytag/renovate-config/issues/29)) ([7e8a73e](https://github.com/heytag/renovate-config/commit/7e8a73e5c91cf6abcad43a11e202473d42535adf))
+
 ## [0.0.2](https://github.com/heytag/renovate-config/compare/v0.0.1...v0.0.2) (2026-10-28)
 
 
