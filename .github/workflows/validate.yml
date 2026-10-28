@@ -61,4 +61,4 @@ jobs:
           docker run --rm \
             -v "$PWD/default.json:/default.json:ro" \
             node:22-alpine \
-            sh -c "npx --yes renovate-config-validator /default.json"
+            sh -c "npx --yes --package renovate renovate-config-validator /default.json"
