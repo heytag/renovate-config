@@ -41,7 +41,7 @@
       ],
       "depNameTemplate": "heytag/renovate-config",
       "datasourceTemplate": "github-releases",
-      "extractVersionTemplate": "^v?(?<version>.+)$"
+      "extractVersionTemplate": "^(?:renovate-config-)?v?(?<version>[\\d].+)$"
     }
   ],
   "packageRules": [
