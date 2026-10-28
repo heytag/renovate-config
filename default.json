@@ -87,6 +87,12 @@
       "matchManagers": ["github-actions"],
       "matchPackageNames": ["aquasecurity/trivy-action"],
       "enabled": false
+    },
+    {
+      "description": "heytag/renovate-config preset: auto-merge immediately — internal package, we control all releases",
+      "matchPackageNames": ["heytag/renovate-config"],
+      "automerge": true,
+      "minimumReleaseAge": "0 days"
     }
   ]
 }
