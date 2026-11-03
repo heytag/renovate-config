@@ -12,6 +12,7 @@
   },
   "labels": ["dependencies"],
   "platformAutomerge": false,
+  "rebaseWhen": "behind-base-branch",
   "osvVulnerabilityAlerts": true,
   "vulnerabilityAlerts": {
     "enabled": false
