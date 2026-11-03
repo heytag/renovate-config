@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.5](https://github.com/heytag/renovate-config/compare/v0.0.4...v0.0.5) (2026-11-03)
+
+
+### Features
+
+* **preset:** auto-rebase open PRs when base branch advances ([6a4e8b7](https://github.com/heytag/renovate-config/commit/6a4e8b7db3f2d3fc84b5370077c9f323b739ca78))
+* **preset:** auto-rebase open PRs when base branch advances ([#36](https://github.com/heytag/renovate-config/issues/36)) ([3d54e54](https://github.com/heytag/renovate-config/commit/3d54e54c009ebab49bbe479caf3cfaaf265e4578))
+
 ## [0.0.4](https://github.com/heytag/renovate-config/compare/v0.0.3...v0.0.4) (2026-10-28)
 
 
