@@ -20,10 +20,10 @@
   "customManagers": [
     {
       "customType": "regex",
-      "description": "Update pinned versions in workflow/action files annotated with renovate comments",
+      "description": "Update pinned versions in workflow/action files annotated with renovate comments. Only matches semver-like values (v?digit...) so 'uses: org/repo@ref' action references are never captured.",
       "managerFilePatterns": ["/.github/workflows/.*\\.yml$/", "/(^|/)action\\.ya?ml$/"],
       "matchStrings": [
-        "# renovate: datasource=(?<datasource>[^\\s]+) depName=(?<depName>[^\\s]+)\\s+\\w+:\\s*(?<currentValue>[^\\s]+)"
+        "# renovate: datasource=(?<datasource>[^\\s]+) depName=(?<depName>[^\\s]+)\\s+\\w+:\\s*(?<currentValue>v?[0-9][^\\s]*)"
       ],
       "extractVersionTemplate": "^v?(?<version>.+)$"
     },
