@@ -30,6 +30,15 @@
     },
     {
       "customType": "regex",
+      "description": "Update image versions pinned via ARG when FROM uses an ARG for the registry (e.g. ARG STACKIT_REGISTRY_URL=invalid). The annotation must immediately precede the ARG line.",
+      "managerFilePatterns": ["/(^|/)Dockerfile[^/]*$/"],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>[^\\s]+) depName=(?<depName>[^\\s]+)\\s+ARG \\w+=(?<currentValue>[^\\s]+)"
+      ],
+      "extractVersionTemplate": "^v?(?<version>.+)$"
+    },
+    {
+      "customType": "regex",
       "description": "Update pinned release downloads in Dockerfiles annotated with renovate comments",
       "managerFilePatterns": ["/(^|/)Dockerfile[^/]*$/"],
       "matchStrings": [
