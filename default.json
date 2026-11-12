@@ -5,6 +5,7 @@
   "semanticCommitType": "chore",
   "semanticCommitScope": "deps",
   "dependencyDashboard": true,
+  "dependencyDashboardAutoclose": false,
   "schedule": ["at any time"],
   "internalChecksFilter": "none",
   "statusCheckNames": {
@@ -81,9 +82,9 @@
       "schedule": ["at any time"]
     },
     {
-      "description": "Ignore internal heytag base images on STACKIT registry — not publicly accessible by Renovate",
+      "description": "Ignore internal heytag base images on STACKIT registry — not publicly accessible by Renovate. Regex is unanchored to also match when the FROM line uses an ARG for the registry (Renovate substitutes 'invalid' for unresolved ARGs, yielding 'invalid/heytag/...').",
       "matchDatasources": ["docker"],
-      "matchPackageNames": ["/^heytag\\/(bun-next-base|caddy-next-base)/"],
+      "matchPackageNames": ["/heytag\\/(bun-next-base|caddy-next-base)/"],
       "enabled": false
     },
     {
