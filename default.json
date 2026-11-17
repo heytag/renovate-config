@@ -5,6 +5,7 @@
   "semanticCommitType": "chore",
   "semanticCommitScope": "deps",
   "dependencyDashboard": true,
+  "dependencyDashboardAutoclose": false,
   "schedule": ["at any time"],
   "internalChecksFilter": "none",
   "statusCheckNames": {
@@ -24,6 +25,15 @@
       "managerFilePatterns": ["/.github/workflows/.*\\.yml$/", "/(^|/)action\\.ya?ml$/"],
       "matchStrings": [
         "# renovate: datasource=(?<datasource>[^\\s]+) depName=(?<depName>[^\\s]+)\\s+\\w+:\\s*(?<currentValue>v?[0-9][^\\s]*)"
+      ],
+      "extractVersionTemplate": "^v?(?<version>.+)$"
+    },
+    {
+      "customType": "regex",
+      "description": "Update image versions pinned via ARG when FROM uses an ARG for the registry (e.g. ARG STACKIT_REGISTRY_URL=invalid). The annotation must immediately precede the ARG line.",
+      "managerFilePatterns": ["/(^|/)Dockerfile[^/]*$/"],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>[^\\s]+) depName=(?<depName>[^\\s]+)\\s+ARG \\w+=(?<currentValue>[^\\s]+)"
       ],
       "extractVersionTemplate": "^v?(?<version>.+)$"
     },
@@ -81,9 +91,9 @@
       "schedule": ["at any time"]
     },
     {
-      "description": "Ignore internal heytag base images on STACKIT registry — not publicly accessible by Renovate",
+      "description": "Ignore internal heytag base images on STACKIT registry — not publicly accessible by Renovate. Regex is unanchored to also match when the FROM line uses an ARG for the registry (Renovate substitutes 'invalid' for unresolved ARGs, yielding 'invalid/heytag/...').",
       "matchDatasources": ["docker"],
-      "matchPackageNames": ["/^heytag\\/(bun-next-base|caddy-next-base)/"],
+      "matchPackageNames": ["/heytag\\/(bun-next-base|caddy-next-base)/"],
       "enabled": false
     },
     {
