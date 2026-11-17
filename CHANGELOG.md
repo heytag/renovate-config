@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.0.6](https://github.com/heytag/renovate-config/compare/v0.0.5...v0.0.6) (2026-11-17)
+
+
+### Features
+
+* **preset:** add Dockerfile ARG custom manager for registry-variable FROM lines ([5609320](https://github.com/heytag/renovate-config/commit/5609320cf60482b6848ea7ede1984ab83f26f26b))
+
+
+### Bug Fixes
+
+* **preset:** unanchor base-image regex and disable dashboard autoclose ([3303c13](https://github.com/heytag/renovate-config/commit/3303c131c656aa3252a63538515a9366bbc1f2ea))
+* **regex:** constrain workflow version match to semver-like values ([f0a633d](https://github.com/heytag/renovate-config/commit/f0a633df44f1d9288113288c436e3d3089b1da28))
+* **regex:** exclude 'uses:' fields from workflow version manager ([445db85](https://github.com/heytag/renovate-config/commit/445db85013d1d274c1d8d46c5fbea4d9cf520344))
+* **regex:** exclude 'uses:' fields from workflow version manager ([#38](https://github.com/heytag/renovate-config/issues/38)) ([0290b47](https://github.com/heytag/renovate-config/commit/0290b473448965ce8b103b12c7b93e4c304c5819))
+
 ## [0.0.5](https://github.com/heytag/renovate-config/compare/v0.0.4...v0.0.5) (2026-11-03)
 
 
